@@ -1,9 +1,30 @@
 import React, { Component } from 'react'
-import HelloWorld from './components/HelloWorld'
+import { CardList } from './components/card-list/CardList'
 
 class App extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      monsters: []
+    }
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users').then((response) => response.json()).then((users) =>
+      this.setState({
+        monsters: users
+      })
+    )
+  }
+
   render() {
-    return <HelloWorld />
+    return (
+      <div className="App">
+        <input type="search" placeholder="search monsters" />
+        <CardList monsters={this.state.monsters} />
+      </div>
+    )
   }
 }
 
